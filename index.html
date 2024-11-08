@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Loja de Eletrônicos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .product {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            margin: 10px;
+            text-align: center;
+            padding: 15px;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeUp 0.7s ease-out forwards;
+        }
+        .product:nth-child(1) { animation-delay: 0.1s; }
+        .product:nth-child(2) { animation-delay: 0.2s; }
+        .product:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product h2 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .product p {
+            font-size: 14px;
+            color: #777;
+        }
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Modal de compra */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 100%);
+            background-color: white;
+            width: 400px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+            animation: slideUp 0.5s ease-out forwards;
+        }
+        .modal.active {
+            display: block;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translate(-50%, 100%);
+            }
+            to {
+                transform: translate(-50%, -50%);
+            }
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-header img {
+            width: 24px;
+            height: 24px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .close {
+            cursor: pointer;
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Modal de confirmação */
+        .modal-confirm {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            width: 300px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        .modal-confirm.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .modal-confirm img {
+            width: 50px;
+            margin-bottom: 15px;
+        }
+        .modal-confirm p {
+            font-size: 18px;
+            color: #333;
+        }
+        .close-confirm {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            color: #333;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Loja de Eletrônicos</h1>
+        <p>Encontre os melhores PCs, celulares e tablets aqui!</p>
+    </header>
+
+    <div class="container">
+        <!-- Produto 1: PC -->
+        <div class="product">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSssxC96CX87eso5bNehCqq_ZoSzZTEcPdfAY4t8wCTjfYRbaTvQBymQU0y&s=10" alt="PC Desktop">
+            <h2>PC Desktop Gamer</h2>
+            <p>Ideal para jogos e edição de vídeo</p>
+            <p class="price">R$ 3.499,00</p>
+            <button onclick="openModal()">Comprar</button>
+        </div>
+
+        <!-- Produto 2: Celular -->
+        <div class="product">
+            <img src="https://a-static.mlcdn.com.br/450x450/samsung-galaxy-s23-fe-5g-smartphone-android-128gb-grafite/magazineluiza/237985800/3f14fd1f7c952dc0694d7bbc6aebd853.jpg" alt="Smartphone">
+            <h2>Smartphone Samsung Galaxy</h2>
+            <p>Câmera de 108MP, 128GB de armazenamento</p>
+            <p class="price">R$ 2.399,00</p>
+            <button onclick="openModal()">Comprar</button>
+        </div>
+
+        <!-- Produto 3: Tablet -->
+        <div class="product">
+            <img src="https://a-static.mlcdn.com.br/450x450/tablet-samsung-galaxy-tab-s6-lite-com-caneta-104-64gb-4gb-ram-android-14-exynos-1280-wi-fi/magazineluiza/238104300/f69e831dbd62f98041c294a85becbeda.jpg" alt="Tablet">
+            <h2>Tablet Apple iPad</h2>
+            <p>Display Retina, 64GB de armazenamento</p>
+            <p class="price">R$ 2.799,00</p>
+            <button onclick="openModal()">Comprar</button>
+        </div>
+    </div>
+
+    <!-- Modal de compra completo -->
+    <div class="modal" id="modalCompra">
+        <div class="modal-header">
+            <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Carrinho de Compra"> <!-- Ícone de compra -->
+            <h2>Finalizar Compra</h2>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-content">
+            <input type="text" placeholder="Nome Completo" required>
+            <input type="text" placeholder="CPF" required>
+            <input type="text" placeholder="Endereço Completo" required>
+            <input type="text" placeholder="Bairro" required>
+            <input type="text" placeholder="Cidade" required>
+            <input type="text" placeholder="Estado" required>
+            <input type="text" placeholder="CEP" required>
+            <input type="tel" placeholder="Telefone" required>
+        </div>
+        <div class="modal-footer">
+            <button onclick="confirmPurchase()">Confirmar Pedido</button>
+        </div>
+    </div>
+
+    <!-- Modal de confirmação de pedido -->
+    <div class="modal-confirm" id="modalConfirm">
+        <span class="close-confirm" onclick="closeConfirmModal()">&times;</span>
+        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828640.png" alt="Confirmação"> <!-- Ícone de certinho -->
+        <p>Seu pedido já está sendo avaliado!</p>
+    </div>
+
+    <footer>
+        <p>Loja de Eletrônicos © 2024</p>
+    </footer>
+
+    <script>
+        function openModal() {
+            document.getElementById('modalCompra').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalCompra').classList.remove('active');
+        }
+
+        function confirmPurchase() {
+            closeModal();
+            document.getElementById('modalConfirm').classList.add('active');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('modalConfirm').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
+
